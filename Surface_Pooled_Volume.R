@@ -4,11 +4,11 @@ library(dplyr)
 library(stringr)
 
 # Reading the datasets
-data1 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_Exp2.csv", header = TRUE, sep = ",")
-data2 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_Exp3.csv", header = TRUE, sep = ",")
-data3 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_Exp4.csv", header = TRUE, sep = ",")
-data4 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_Exp5.csv", header = TRUE, sep = ",")
-data5 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_Exp6.csv", header = TRUE, sep = ",")
+data1 <- read.table("XXX/combined_data_Exp2.csv", header = TRUE, sep = ",")
+data2 <- read.table("XXX/combined_data_Exp3.csv", header = TRUE, sep = ",")
+data3 <- read.table("XXX/combined_data_Exp4.csv", header = TRUE, sep = ",")
+data4 <- read.table("XXX/combined_data_Exp5.csv", header = TRUE, sep = ",")
+data5 <- read.table("XXX/combined_data_Exp6.csv", header = TRUE, sep = ",")
 
 # Assuming your data frames are named data1, data2, data3, and data5
 # and you want to reorder columns to the order: Condition, Volume, time, Count, Original_Name
@@ -29,32 +29,8 @@ combined_data <- rbind(data1, data2, data3, data4, data5)
 
 combined_data <- combined_data %>% filter(!(Condition %in% c("MMC0.3", "MMC0.5")))
 
-# Assuming combined_data is your data frame and it has columns 'time' and 'condition'
-
-# Filter rows where time is 98
-time_98_rows <- which(combined_data$time == 98)
-
-# Randomly assign "MMC0.2" or "Control" to those rows
-combined_data$Condition[time_98_rows] <- sample(c("MMC0.2", "Control"), length(time_98_rows), replace = TRUE)
-
-# Check the updated data for time 98
-combined_data[combined_data$time == 98, ]
-
-
 # Print the renamed data
 print(combined_data)
-
-filtered_data <- combined_data[combined_data$time == 168 & combined_data$Condition == "Control", ]
-
-# Plot the histogram
-options(scipen = 999)
-hist(filtered_data$Volume, 
-     main = "Histogram of Surface Volume (time=72 + Condition=Control)", 
-     xlab = "Volume", 
-     col = "#0072B2", 
-     border = "black", 
-     breaks = 20,
-     xlim = range(filtered_data$Volume))
 
 # Calculate confidence intervals (CI) for volume
 summary_stats_volume <- summary_stats_volume %>%
@@ -84,7 +60,7 @@ my_plot <- ggplot(summary_stats_volume, aes(x = factor(time, levels = c(72, 98, 
   geom_point(data = combined_data, aes(x = factor(time, levels = c(72, 98, 120, 144, 168, 192)), y = Volume, color = Condition, group = Condition), size = 1.5, alpha = 0.2, position = position_jitter(width = 0.1, height = 0))
 
 # Save the plot as a jpg file
-ggsave("C:/Users/SebastianBoehm/Downloads/Absolute_Volume_Exp6_Sox2.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
+ggsave("XXX/Absolute_Volume_Exp6_Sox2.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
 
 ##### Normalized Plot (Volume)
 # Calculate normalized values
@@ -142,11 +118,11 @@ my_plot_normalized <- ggplot(merged_data, aes(x = factor(time), y = perc_diff_co
   labs(caption = "  ")
 
 # Save the normalized count plot as a jpeg file
-ggsave("C:/Users/SebastianBoehm/Downloads/Normalized_Surface_exp5.tif", plot = my_plot_normalized, width = 10, height = 7, dpi = 300)
+ggsave("XXX/Normalized_Surface.tif", plot = my_plot_normalized, width = 10, height = 7, dpi = 300)
 
 
 # Save the combined_data DataFrame as a CSV file
-write.csv(combined_data, "C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Volume/combined_data_pooled.csv", row.names = FALSE)
+write.csv(combined_data, "XXX/combined_data_pooled.csv", row.names = FALSE)
 
 
 
