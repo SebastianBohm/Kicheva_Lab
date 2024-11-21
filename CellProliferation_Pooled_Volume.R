@@ -4,10 +4,10 @@ library(dplyr)
 library(stringr)
 
 # Reading the datasets
-data1 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Proliferation/combined_data_Exp2.csv", header = TRUE, sep = ",")
-data2 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Proliferation/combined_data_Exp3.csv", header = TRUE, sep = ",")
-data3 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Proliferation/combined_data_Exp4.csv", header = TRUE, sep = ",")
-data5 <- read.table("C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Proliferation/combined_data_Exp6.csv", header = TRUE, sep = ",")
+data1 <- read.table("XXX/combined_data_Exp2.csv", header = TRUE, sep = ",")
+data2 <- read.table("XXX/combined_data_Exp3.csv", header = TRUE, sep = ",")
+data3 <- read.table("XXX/combined_data_Exp4.csv", header = TRUE, sep = ",")
+data5 <- read.table("XXX/combined_data_Exp6.csv", header = TRUE, sep = ",")
 
 # Assuming your data frames are named data1, data2, data3, and data5
 # and you want to reorder columns to the order: Condition, Volume, time, Count, Original_Name
@@ -28,19 +28,6 @@ combined_data <- rbind(data1, data2, data3, data5)
 
 combined_data <- combined_data %>% filter(!(Condition %in% c("MMC0.3", "MMC0.5")))
 
-# Assuming combined_data is your data frame and it has columns 'time' and 'condition'
-
-# Filter rows where time is 98
-time_98_rows <- which(combined_data$time == 98)
-
-# Randomly assign "MMC0.2" or "Control" to those rows
-combined_data$Condition[time_98_rows] <- sample(c("MMC0.2", "Control"), length(time_98_rows), replace = TRUE)
-
-# Check the updated data for time 98
-combined_data[combined_data$time == 98, ]
-
-
-# Assuming your data frame is named 'combined_data' and the column is named 'Counts'
 
 # Check the updated data
 head(combined_data)
@@ -81,7 +68,7 @@ my_plot <- ggplot(summary_stats_count, aes(x = factor(time, levels = c(72, 98, 1
   geom_point(data = combined_data, aes(x = factor(time, levels = c(72, 98, 120, 144, 168, 192)), y = Count, color = Condition, group = Condition), size = 1.5, alpha = 0.2, position = position_jitter(width = 0.1, height = 0))
 
 # Save the plot as a jpg file
-ggsave("C:/Users/SebastianBoehm/Downloads/Absolute_Count_Exp6_02.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
+ggsave("XXX/Absolute_Count_Exp6_02.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
 
 
 
@@ -120,10 +107,10 @@ my_plot <- ggplot(merged_data, aes(x = factor(time), y = perc_diff_control, grou
   labs(caption = "  ")
 
 # Save the normalized count plot as a jpeg file
-ggsave("C:/Users/SebastianBoehm/Downloads/Normalized_Count_exp6.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
+ggsave("XXX/Normalized_Count_exp6.tif", plot = my_plot, width = 10, height = 7, dpi = 300)
 
 # Save the combined_data DataFrame as a CSV file
-write.csv(combined_data, "C:/Users/SebastianBoehm/OneDrive/Dokumente/A_Kicheva/HM1/Proliferation/combined_data_pooled.csv", row.names = FALSE)
+write.csv(combined_data, "XXX/combined_data_pooled.csv", row.names = FALSE)
 
 
 
